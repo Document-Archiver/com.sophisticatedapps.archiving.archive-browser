@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="inputPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="5.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sophisticatedapps.archiving.archivebrowser.controller.InputPaneController">
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+   <children>
+      <Label text="%input-pane.search-for-label" />
+      <TextField fx:id="searchForTextField" />
+      <HBox spacing="5.0">
+         <children>
+            <VBox spacing="5.0">
+               <children>
+                  <Label text="%input-pane.from-date-label" />
+                  <DatePicker fx:id="fromDatePicker" />
+               </children>
+            </VBox>
+            <VBox spacing="5.0">
+               <children>
+                  <Label text="%input-pane.to-date-label" />
+                  <DatePicker fx:id="toDatePicker" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <Label text="%input-pane.with-tags-label" />
+      <TextField fx:id="tagsTextField" onKeyPressed="#handleTagsTextFieldKeyPressed" />
+      <HBox>
+         <children>
+            <ListView fx:id="existingTagsListView" minHeight="-Infinity" onKeyPressed="#handleExistingTagsListViewKeyPressed" onMouseClicked="#handleExistingTagsListViewClicked" />
+            <Label text="-&gt;" />
+            <ListView fx:id="selectedTagsListView" minHeight="-Infinity" onMouseClicked="#handleSelectedTagsListViewClicked" />
+         </children>
+      </HBox>
+   </children>
+</VBox>
