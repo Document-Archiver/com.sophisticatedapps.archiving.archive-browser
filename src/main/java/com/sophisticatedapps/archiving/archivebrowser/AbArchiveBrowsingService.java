@@ -18,12 +18,31 @@ package com.sophisticatedapps.archiving.archivebrowser;
 
 import com.sophisticatedapps.archiving.documentarchiver.api.ArchiveBrowsingService;
 import com.sophisticatedapps.archiving.documentarchiver.util.FXMLUtil;
+import com.sophisticatedapps.archiving.documentarchiver.util.PropertiesUtil;
 import com.sophisticatedapps.archiving.documentarchiver.util.ThemeUtil;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.util.Properties;
+
 public class AbArchiveBrowsingService implements ArchiveBrowsingService {
+
+    private static final String PROPERTIES_FILE = "archive-browser.properties";
+    private static final Properties APPLICATION_PROPERTIES;
+
+    static {
+
+        try {
+
+            APPLICATION_PROPERTIES = PropertiesUtil.readProperties(PROPERTIES_FILE);
+        }
+        catch (IOException e) {
+
+            throw (new RuntimeException("Properties could not be loaded: ".concat(e.getMessage())));
+        }
+    }
 
     @Override
     public void assemble(Stage aStage) {
@@ -35,7 +54,14 @@ public class AbArchiveBrowsingService implements ArchiveBrowsingService {
         // Wrap root pane into a Scene and put it to the given stage.
         Scene tmpScene = new Scene(tmpRootPane);
         ThemeUtil.applyCurrentTheme(tmpScene);
+        aStage.setTitle("ArchiveBrowser");
         aStage.setScene(tmpScene);
+    }
+
+    @Override
+    public String getVersion() {
+
+        return APPLICATION_PROPERTIES.getProperty("application.version");
     }
 
 }
