@@ -18,6 +18,7 @@ package com.sophisticatedapps.archiving.archivebrowser.controller;
 
 import com.sophisticatedapps.archiving.archivebrowser.GlobalConstants;
 import com.sophisticatedapps.archiving.documentarchiver.controller.BaseController;
+import com.sophisticatedapps.archiving.documentarchiver.controller.DisplayFilePaneController;
 import com.sophisticatedapps.archiving.documentarchiver.util.FXMLUtil;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.value.ChangeListener;
@@ -37,6 +38,7 @@ public class AbRootPaneController extends BaseController {
 
     private Pane inputPane;
     private Pane resultsPane;
+    private Pane displayFilePane;
 
     @FXML
     private BorderPane rootPane;
@@ -51,13 +53,17 @@ public class AbRootPaneController extends BaseController {
                 .loadAndRampUpRegion("view/InputPane.fxml", stage, GlobalConstants.DEFAULT_RESOURCE_LOAD_CONTEXT);
         FXMLUtil.ControllerRegionPair<ResultPaneController,Pane> tmpResultPaneControllerRegionPair = FXMLUtil
                 .loadAndRampUpRegion("view/ResultPane.fxml", stage, GlobalConstants.DEFAULT_RESOURCE_LOAD_CONTEXT);
+        FXMLUtil.ControllerRegionPair<DisplayFilePaneController,Pane> tmpDisplayFilePaneControllerRegionPair =
+                FXMLUtil.loadAndRampUpRegion("view/DisplayFilePane.fxml", stage);
 
         inputPane = tmpInputPaneControllerRegionPair.getRegion();
         resultsPane = tmpResultPaneControllerRegionPair.getRegion();
+        displayFilePane = tmpDisplayFilePaneControllerRegionPair.getRegion();
 
         // Remember the controller for later
         paneControllerList.add(tmpInputPaneControllerRegionPair.getController());
         paneControllerList.add(tmpResultPaneControllerRegionPair.getController());
+        paneControllerList.add(tmpDisplayFilePaneControllerRegionPair.getController());
 
         // Set dimensions
         setWidths();
@@ -77,6 +83,7 @@ public class AbRootPaneController extends BaseController {
         // Set sub-panes
         rootPane.setLeft(inputPane);
         rootPane.setCenter(resultsPane);
+        rootPane.setRight(displayFilePane);
     }
 
     @Override
@@ -106,9 +113,10 @@ public class AbRootPaneController extends BaseController {
 
     private void setWidths() {
 
-        final double tmpStageWidthTenth = (stage.getWidth() / 10);
-        inputPane.setPrefWidth(tmpStageWidthTenth * 3);
-        resultsPane.setPrefWidth(tmpStageWidthTenth * 7);
+        final double tmpStageWidth = stage.getWidth();
+        inputPane.setPrefWidth(tmpStageWidth * 0.2);
+        resultsPane.setPrefWidth(tmpStageWidth * 0.4);
+        displayFilePane.setPrefWidth(tmpStageWidth * 0.4);
     }
 
     private void setHeights() {
@@ -116,6 +124,7 @@ public class AbRootPaneController extends BaseController {
         final double aStageHeight = stage.getHeight();
         inputPane.setPrefHeight(aStageHeight);
         resultsPane.setPrefHeight(aStageHeight);
+        displayFilePane.setPrefHeight(aStageHeight);
     }
 
 }

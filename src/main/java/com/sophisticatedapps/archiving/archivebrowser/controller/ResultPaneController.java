@@ -1,13 +1,15 @@
 package com.sophisticatedapps.archiving.archivebrowser.controller;
 
 import com.sophisticatedapps.archiving.archivebrowser.GlobalConstants;
-import com.sophisticatedapps.archiving.archivebrowser.util.SearchUtil;
 import com.sophisticatedapps.archiving.archivebrowser.type.InputData;
 import com.sophisticatedapps.archiving.archivebrowser.type.Result;
+import com.sophisticatedapps.archiving.archivebrowser.util.SearchUtil;
 import com.sophisticatedapps.archiving.documentarchiver.controller.BaseController;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -40,7 +42,7 @@ public class ResultPaneController extends BaseController {
                 }
                 else {
 
-                    setText(aResult.getFile().getAbsolutePath());
+                    setText(aResult.getFile().getName());
                 }
             }
         });
@@ -58,6 +60,22 @@ public class ResultPaneController extends BaseController {
     private void handleNewInputData(InputData anInputData) {
 
         foundDocumentsListView.getItems().setAll(SearchUtil.search(anInputData));
+    }
+
+    @FXML
+    protected void handleFoundDocumentsListViewClicked() {
+
+        setNewCurrentDocument(foundDocumentsListView.getSelectionModel().getSelectedItem().getFile());
+    }
+
+    @FXML
+    protected void handleFoundDocumentsListKeyPressed(KeyEvent aKeyEvent) {
+
+        if (aKeyEvent.getCode().equals(KeyCode.UP) || aKeyEvent.getCode().equals(KeyCode.DOWN)) {
+
+            // Same as if the user would click on an item
+            handleFoundDocumentsListViewClicked();
+        }
     }
 
 }

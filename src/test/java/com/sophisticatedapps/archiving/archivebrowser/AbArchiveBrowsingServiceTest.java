@@ -38,7 +38,7 @@ class AbArchiveBrowsingServiceTest {
     @Test
     void getVersion() {
 
-        assertEquals("1.0-SNAPSHOT", (new AbArchiveBrowsingService()).getVersion());
+        assertEquals("1.0.0", (new AbArchiveBrowsingService()).getVersion());
     }
 
 }

@@ -5,11 +5,11 @@
 <?import javafx.scene.layout.Pane?>
 
 
-<Pane fx:id="resultPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sophisticatedapps.archiving.archivebrowser.controller.ResultPaneController">
-   <children>
-      <ListView fx:id="foundDocumentsListView" />
-   </children>
+<Pane fx:id="resultPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sophisticatedapps.archiving.archivebrowser.controller.ResultPaneController">
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </padding>
+   <children>
+      <ListView fx:id="foundDocumentsListView" onKeyPressed="#handleFoundDocumentsListKeyPressed" onMouseClicked="#handleFoundDocumentsListViewClicked" />
+   </children>
 </Pane>

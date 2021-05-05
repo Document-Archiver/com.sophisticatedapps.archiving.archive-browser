@@ -16,6 +16,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.time.LocalDate;
@@ -24,6 +25,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class InputPaneController extends BaseController {
+
+    @FXML
+    private Pane inputPane;
 
     @FXML
     private TextField searchForTextField;
@@ -53,6 +57,7 @@ public class InputPaneController extends BaseController {
         fromDatePicker.setConverter(tmpDatePickerStringConverter);
         toDatePicker.setConverter(tmpDatePickerStringConverter);
         setNewExistingTagsToListView(new ArrayList<>(Tags.getExistingTags()));
+        inputPane.heightProperty().addListener((anObservable, anOldValue, aNewValue) -> setHeights());
 
         searchForTextField.textProperty().addListener((anObservable, anOldValue, aNewValue) ->
                 setNewInputDataToStageProperties());
@@ -74,6 +79,13 @@ public class InputPaneController extends BaseController {
 
         tagsTextField.textProperty().addListener((anObservable, anOldValue, aNewValue) ->
                 handleTagsTextFieldTextChanged(aNewValue));
+    }
+
+    private void setHeights() {
+
+        double tmpTagsListViewsPrefHeight = (inputPane.getPrefHeight() - 225);
+        existingTagsListView.setPrefHeight(tmpTagsListViewsPrefHeight);
+        selectedTagsListView.setPrefHeight(tmpTagsListViewsPrefHeight);
     }
 
     /**
