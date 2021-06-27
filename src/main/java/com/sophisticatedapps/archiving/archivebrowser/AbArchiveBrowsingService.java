@@ -16,6 +16,7 @@
 
 package com.sophisticatedapps.archiving.archivebrowser;
 
+import com.sophisticatedapps.archiving.documentarchiver.api.ApplicationContext;
 import com.sophisticatedapps.archiving.documentarchiver.api.ArchiveBrowsingService;
 import com.sophisticatedapps.archiving.documentarchiver.util.FXMLUtil;
 import com.sophisticatedapps.archiving.documentarchiver.util.PropertiesUtil;
@@ -45,17 +46,19 @@ public class AbArchiveBrowsingService implements ArchiveBrowsingService {
     }
 
     @Override
-    public void assemble(Stage aStage) {
+    public void assemble(ApplicationContext anApplicationContext) {
+
+        Stage tmpStage = anApplicationContext.getPrimaryStage();
 
         // Create root pane
         BorderPane tmpRootPane = (BorderPane) FXMLUtil.loadAndRampUpRegion("view/AbRootPane.fxml",
-                aStage, GlobalConstants.DEFAULT_RESOURCE_LOAD_CONTEXT).getRegion();
+                anApplicationContext, GlobalConstants.DEFAULT_RESOURCE_LOAD_CONTEXT).getRegion();
 
         // Wrap root pane into a Scene and put it to the given stage.
         Scene tmpScene = new Scene(tmpRootPane);
         ThemeUtil.applyCurrentTheme(tmpScene);
-        aStage.setTitle("ArchiveBrowser");
-        aStage.setScene(tmpScene);
+        tmpStage.setTitle("ArchiveBrowser");
+        tmpStage.setScene(tmpScene);
     }
 
     @Override

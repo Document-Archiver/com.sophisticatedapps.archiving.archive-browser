@@ -16,6 +16,10 @@
 
 package com.sophisticatedapps.archiving.archivebrowser;
 
+import com.sophisticatedapps.archiving.documentarchiver.api.ApplicationContext;
+import com.sophisticatedapps.archiving.documentarchiver.api.impl.DefaultApplicationContext;
+import com.sophisticatedapps.archiving.documentarchiver.api.impl.DefaultApplicationServices;
+import com.sophisticatedapps.archiving.documentarchiver.api.impl.DefaultDialogProvider;
 import com.sophisticatedapps.archiving.documentarchiver.util.FXMLUtil;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
@@ -56,9 +60,12 @@ public class App extends Application {
         aPrimaryStage.setWidth(tmpBounds.getWidth());
         aPrimaryStage.setHeight(tmpBounds.getHeight());
 
+        ApplicationContext tmpApplicationContext = new DefaultApplicationContext(new DefaultApplicationServices(),
+                new DefaultDialogProvider(), this.getHostServices(), aPrimaryStage);
+
         // Create root pane
         BorderPane tmpRootPane = (BorderPane)FXMLUtil.loadAndRampUpRegion("view/AbRootPane.fxml",
-                aPrimaryStage, GlobalConstants.DEFAULT_RESOURCE_LOAD_CONTEXT).getRegion();
+                tmpApplicationContext, GlobalConstants.DEFAULT_RESOURCE_LOAD_CONTEXT).getRegion();
 
         // Place icons
         //placeIcons(aPrimaryStage);

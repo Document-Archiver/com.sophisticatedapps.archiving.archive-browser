@@ -4,6 +4,7 @@ import com.sophisticatedapps.archiving.archivebrowser.GlobalConstants;
 import com.sophisticatedapps.archiving.archivebrowser.type.InputData;
 import com.sophisticatedapps.archiving.archivebrowser.type.Result;
 import com.sophisticatedapps.archiving.archivebrowser.util.SearchUtil;
+import com.sophisticatedapps.archiving.documentarchiver.api.ApplicationContext;
 import com.sophisticatedapps.archiving.documentarchiver.controller.BaseController;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -11,7 +12,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 
 import java.util.Objects;
 
@@ -24,9 +24,9 @@ public class ResultPaneController extends BaseController {
     private ListView<Result> foundDocumentsListView;
 
     @Override
-    public void rampUp(Stage aStage) {
+    public void rampUp(ApplicationContext anApplicationContext) {
 
-        super.rampUp(aStage);
+        super.rampUp(anApplicationContext);
 
         // Set cell factory for documents ListView.
         foundDocumentsListView.setCellFactory(aParam -> new ListCell<>() {

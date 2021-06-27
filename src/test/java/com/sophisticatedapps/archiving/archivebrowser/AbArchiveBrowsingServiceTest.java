@@ -1,5 +1,7 @@
 package com.sophisticatedapps.archiving.archivebrowser;
 
+import com.sophisticatedapps.archiving.documentarchiver.api.ApplicationContext;
+import com.sophisticatedapps.archiving.documentarchiver.api.impl.DefaultApplicationContext;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.collections.ObservableMap;
 import javafx.scene.Scene;
@@ -29,7 +31,8 @@ class AbArchiveBrowsingServiceTest {
         when(tmpMockedStage.widthProperty()).thenReturn(tmpMockedReadOnlyDoubleProperty);
         when(tmpMockedStage.heightProperty()).thenReturn(tmpMockedReadOnlyDoubleProperty);
 
-        (new AbArchiveBrowsingService()).assemble(tmpMockedStage);
+        ApplicationContext tmpApplicationContext = new DefaultApplicationContext(null, null, null, tmpMockedStage);
+        (new AbArchiveBrowsingService()).assemble(tmpApplicationContext);
         WaitForAsyncUtils.waitForFxEvents();
 
         verify(tmpMockedStage, Mockito.times(1)).setScene(any(Scene.class));
@@ -38,7 +41,7 @@ class AbArchiveBrowsingServiceTest {
     @Test
     void getVersion() {
 
-        assertEquals("1.0.0", (new AbArchiveBrowsingService()).getVersion());
+        assertEquals("1.1.0", (new AbArchiveBrowsingService()).getVersion());
     }
 
 }

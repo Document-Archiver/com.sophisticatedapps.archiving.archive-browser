@@ -2,6 +2,7 @@ package com.sophisticatedapps.archiving.archivebrowser.controller;
 
 import com.sophisticatedapps.archiving.archivebrowser.GlobalConstants;
 import com.sophisticatedapps.archiving.archivebrowser.type.InputData;
+import com.sophisticatedapps.archiving.documentarchiver.api.ApplicationContext;
 import com.sophisticatedapps.archiving.documentarchiver.controller.BaseController;
 import com.sophisticatedapps.archiving.documentarchiver.model.Tags;
 import com.sophisticatedapps.archiving.documentarchiver.util.CollectionUtil;
@@ -17,7 +18,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -48,9 +48,9 @@ public class InputPaneController extends BaseController {
     private ListView<String> selectedTagsListView;
 
     @Override
-    public void rampUp(Stage aStage) {
+    public void rampUp(ApplicationContext anApplicationContext) {
 
-        super.rampUp(aStage);
+        super.rampUp(anApplicationContext);
 
         // Set converter, filter, etc.
         DatePickerStringConverter tmpDatePickerStringConverter = new DatePickerStringConverter();

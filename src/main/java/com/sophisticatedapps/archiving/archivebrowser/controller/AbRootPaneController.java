@@ -17,6 +17,7 @@
 package com.sophisticatedapps.archiving.archivebrowser.controller;
 
 import com.sophisticatedapps.archiving.archivebrowser.GlobalConstants;
+import com.sophisticatedapps.archiving.documentarchiver.api.ApplicationContext;
 import com.sophisticatedapps.archiving.documentarchiver.controller.BaseController;
 import com.sophisticatedapps.archiving.documentarchiver.controller.DisplayFilePaneController;
 import com.sophisticatedapps.archiving.documentarchiver.util.FXMLUtil;
@@ -25,7 +26,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,17 +44,19 @@ public class AbRootPaneController extends BaseController {
     private BorderPane rootPane;
 
     @Override
-    public void rampUp(Stage aStage) {
+    public void rampUp(ApplicationContext anApplicationContext) {
 
-        super.rampUp(aStage);
+        super.rampUp(anApplicationContext);
 
         // Load pane's sub-panes
         FXMLUtil.ControllerRegionPair<InputPaneController,Pane> tmpInputPaneControllerRegionPair = FXMLUtil
-                .loadAndRampUpRegion("view/InputPane.fxml", stage, GlobalConstants.DEFAULT_RESOURCE_LOAD_CONTEXT);
+                .loadAndRampUpRegion("view/InputPane.fxml", applicationContext,
+                        GlobalConstants.DEFAULT_RESOURCE_LOAD_CONTEXT);
         FXMLUtil.ControllerRegionPair<ResultPaneController,Pane> tmpResultPaneControllerRegionPair = FXMLUtil
-                .loadAndRampUpRegion("view/ResultPane.fxml", stage, GlobalConstants.DEFAULT_RESOURCE_LOAD_CONTEXT);
+                .loadAndRampUpRegion("view/ResultPane.fxml", applicationContext,
+                        GlobalConstants.DEFAULT_RESOURCE_LOAD_CONTEXT);
         FXMLUtil.ControllerRegionPair<DisplayFilePaneController,Pane> tmpDisplayFilePaneControllerRegionPair =
-                FXMLUtil.loadAndRampUpRegion("view/DisplayFilePane.fxml", stage);
+                FXMLUtil.loadAndRampUpRegion("view/DisplayFilePane.fxml", applicationContext);
 
         inputPane = tmpInputPaneControllerRegionPair.getRegion();
         resultsPane = tmpResultPaneControllerRegionPair.getRegion();
@@ -73,12 +75,12 @@ public class AbRootPaneController extends BaseController {
         final ChangeListener<Number> tmpStageWidthPropertyListener =
                 ((anObservable, anOldValue, aNewValue) -> setWidths());
         stageWidthPropertyListenersList.add(tmpStageWidthPropertyListener);
-        aStage.widthProperty().addListener(tmpStageWidthPropertyListener);
+        stage.widthProperty().addListener(tmpStageWidthPropertyListener);
 
         final ChangeListener<Number> tmpStageHeightPropertyListener =
                 ((anObservable, anOldValue, aNewValue) -> setHeights());
         stageHeightPropertyListenersList.add(tmpStageHeightPropertyListener);
-        aStage.heightProperty().addListener(tmpStageHeightPropertyListener);
+        stage.heightProperty().addListener(tmpStageHeightPropertyListener);
 
         // Set sub-panes
         rootPane.setLeft(inputPane);
